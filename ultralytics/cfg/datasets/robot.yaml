@@ -1,0 +1,13 @@
+# RoboMaster 目标检测数据集（robot / robo_dog）
+# 目录结构：
+# datasets/robo
+#   ├── images/train  images/val
+#   └── labels/train  labels/val
+
+path: D:\DeepLearning\ultralytics-8.4.202\ultralytics-8.4.202\datasets\robot
+train: images/train
+val: images/val
+
+names:
+  0: robot
+  1: robo_dog
