@@ -1,13 +1,7 @@
 ﻿import torch
-
-# 修复：RTX 50 系列 + cuDNN 9.26 的 runtime_compiled 引擎会导致 0xc0000005 访问冲突，
-# 表现为训练几轮后进程无提示直接崩溃。关闭 cuDNN 后改用原生卷积实现，稳定但略慢。
-torch.backends.cudnn.enabled = False
-
 from ultralytics import YOLO
-
 if __name__ =="__main__":
-    model=YOLO(r"D:\DeepLearning\ultralytics-8.4.202\ultralytics-8.4.202\runs\detect\train-5\weights\best.pt")
+    model=YOLO(r"D:\DeepLearning\ultralytics-8.4.202\ultralytics-8.4.202\runs\detect\train-3\weights\best.pt")
     model.train(
         data="robot.yaml",  # 数据集配置，指向 datasets/robo 的 images 和 labels
         imgsz=800,  # 输入分辨率，每张图先缩放到 640×640 再送进网络
