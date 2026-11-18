@@ -389,6 +389,7 @@ class IterableSimpleNamespace(SimpleNamespace):
     def __deepcopy__(self, memo):
         """Return a deep copy (satisfies copy.deepcopy probes from debugger/pickle)."""
         import copy as _copy
+
         return self.__class__(**_copy.deepcopy(vars(self), memo))
 
     def __getattr__(self, attr):
