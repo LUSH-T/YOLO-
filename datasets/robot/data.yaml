@@ -1,0 +1,8 @@
+# 由 YOLO 数据集划分工具（标签筛选 · 自动结构）生成
+path: D:/DeepLearning/ultralytics-8.4.202/ultralytics-8.4.202/datasets/robot
+train: images/train
+val: images/val
+nc: 2
+names:
+  0: class_0
+  1: class_1

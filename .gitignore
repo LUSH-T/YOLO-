@@ -150,8 +150,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# datasets and projects (ignore /datasets dir at root only to allow for docs/en/datasets dir)
-/datasets
+# datasets and projects
+# /datasets 已放开上传（2026-11-18）：只排除冗余备份目录与标注缓存
+/datasets/*/_*/
+*.cache
 runs/
 wandb/
 .DS_Store
@@ -210,4 +212,10 @@ results.csv
 # Fuzz media and datasets generated beside the weights dir, which is the checkout root outside CI
 fuzz-sources/
 fuzz-datasets/
+
+# 数据集图片放行（必须写在上方 *.jpg/*.png 之后才能覆盖）
+!/datasets/**/*.jpg
+!/datasets/**/*.jpeg
+!/datasets/**/*.png
+!/datasets/**/*.bmp
 fuzz-models/
