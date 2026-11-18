@@ -159,7 +159,7 @@ wandb/
 .DS_Store
 
 # Neural Network weights -----------------------------------------------------------------------------------------------
-weights/
+runs/**/weights/
 *.weights
 *.pt
 *.ts
@@ -218,4 +218,6 @@ fuzz-datasets/
 !/datasets/**/*.jpeg
 !/datasets/**/*.png
 !/datasets/**/*.bmp
+# 训练权重放行（/weights 目录下的 .pt）
+!/weights/*.pt
 fuzz-models/
