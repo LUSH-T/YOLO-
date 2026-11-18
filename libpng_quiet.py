@@ -1,5 +1,5 @@
 """libpng_quiet —— 屏蔽 "libpng warning: iCCP: known incorrect sRGB profile" 刷屏
-其余 stderr 内容（含 tqdm 进度条）原样输出，不影响报错排查。
+其余 stderr 内容（含 tqdm 进度条）原样输出，不影响报错排查。.
 
 用法：在脚本最开头（其它 import 之前）加一行
     import libpng_quiet   # noqa: F401
@@ -32,7 +32,7 @@ def _pump(rfd: int, outfd: int) -> None:
                     m = _SEG.match(buf)
                     if not m:
                         break
-                    seg, buf = buf[: m.end()], buf[m.end():]
+                    seg, buf = buf[: m.end()], buf[m.end() :]
                     if not any(n in seg for n in _NOISE):
                         os.write(outfd, seg)
         if buf and not any(n in buf for n in _NOISE):
@@ -42,7 +42,7 @@ def _pump(rfd: int, outfd: int) -> None:
 
 
 def install() -> bool:
-    """把 fd 2 接进过滤线程。重复调用无副作用。"""
+    """把 fd 2 接进过滤线程。重复调用无副作用。."""
     global _installed, _OLD, _THREAD
     if _installed or os.name != "nt":
         return False
@@ -63,7 +63,7 @@ def install() -> bool:
 
 
 def _restore() -> None:
-    """退出前把 fd 2 还原并等管道排空，避免最后几行丢失。"""
+    """退出前把 fd 2 还原并等管道排空，避免最后几行丢失。."""
     try:
         sys.stderr.flush()
         if _OLD is not None:
