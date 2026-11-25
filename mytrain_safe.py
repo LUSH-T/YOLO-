@@ -1,4 +1,4 @@
-"""安全版训练脚本：先检查系统内存余量，再按余量自动选 batch，避免训练中途 OOM。
+r"""安全版训练脚本：先检查系统内存余量，再按余量自动选 batch，避免训练中途 OOM。.
 
 与 mytrain.py 的区别：
   1. 开跑前读取 Windows 的「提交上限 / 可用提交」，不够就直接拦下并给操作指引，
@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent
 
 # ---------------- 1. 内存预检 ----------------
 
+
 class MEMORYSTATUSEX(ctypes.Structure):
     _fields_ = [
         ("dwLength", wintypes.DWORD),
@@ -36,7 +37,7 @@ class MEMORYSTATUSEX(ctypes.Structure):
 
 
 def commit_status():
-    """返回 (提交上限GB, 可用提交GB)。可用提交才是决定能不能训练的那个数。"""
+    """返回 (提交上限GB, 可用提交GB)。可用提交才是决定能不能训练的那个数。."""
     m = MEMORYSTATUSEX()
     m.dwLength = ctypes.sizeof(MEMORYSTATUSEX)
     ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(m))
@@ -44,7 +45,7 @@ def commit_status():
 
 
 def pick_batch(avail_gb: float) -> int:
-    """按可用提交内存选 batch。经验值：batch 越大，显存/内存占用越高。"""
+    """按可用提交内存选 batch。经验值：batch 越大，显存/内存占用越高。."""
     if avail_gb >= 13:
         return 12
     if avail_gb >= 9:
@@ -72,8 +73,7 @@ def main() -> int:
 
     print(f"[内存] 按当前余量选用 batch={batch}")
     if batch <= 4:
-        print("[内存] 余量偏紧：建议先关掉 PyCharm / Visual Studio / 微信 / 浏览器再跑，"
-              "否则仍可能在第 10 轮验证时崩。")
+        print("[内存] 余量偏紧：建议先关掉 PyCharm / Visual Studio / 微信 / 浏览器再跑，否则仍可能在第 10 轮验证时崩。")
 
     from ultralytics import YOLO
 
@@ -86,19 +86,19 @@ def main() -> int:
         data="robo.yaml",
         imgsz=640,
         # ---------- 内存控制 ----------
-        batch=batch,        # 由上面的预检决定，不再用 -1
-        cache=False,        # 不缓存到内存；405 张图加速有限，却要多吃内存
-        workers=0,          # Windows 上必须 0，否则容易 WinError 1455
+        batch=batch,  # 由上面的预检决定，不再用 -1
+        cache=False,  # 不缓存到内存；405 张图加速有限，却要多吃内存
+        workers=0,  # Windows 上必须 0，否则容易 WinError 1455
         amp=True,
         # ---------- 训练时长 ----------
-        epochs=60,          # 已有 0.93 的底子，短程微调足够
+        epochs=60,  # 已有 0.93 的底子，短程微调足够
         patience=20,
         # ---------- 优化器 ----------
         optimizer="AdamW",
-        lr0=0.0005,         # 微调，步长比 0.001 再小一档
+        lr0=0.0005,  # 微调，步长比 0.001 再小一档
         cos_lr=True,
         # ---------- 增强 ----------
-        degrees=15,         # 地面机器人不需要 180° 倒立
+        degrees=15,  # 地面机器人不需要 180° 倒立
         scale=0.75,
         mosaic=0.8,
         close_mosaic=15,
@@ -107,7 +107,7 @@ def main() -> int:
         # ---------- 输出 ----------
         name="train-10",
         exist_ok=True,
-        plots=False,        # 关掉绘图，省一次内存峰值
+        plots=False,  # 关掉绘图，省一次内存峰值
     )
     return 0
 
