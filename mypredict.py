@@ -35,7 +35,7 @@ for i, r in enumerate(results, 1):
         print(f"--- 已处理 {i} 帧, 命中 {hit_frames} 帧 ---", flush=True)
 
 if total_frames:
-    print(f"\n完成: 共 {total_frames} 帧, 有检测的帧 {hit_frames} ({hit_frames/total_frames:.1%})")
+    print(f"\n完成: 共 {total_frames} 帧, 有检测的帧 {hit_frames} ({hit_frames / total_frames:.1%})")
     print("结果视频保存在 runs/detect/predict* 目录下")
 else:
     print("\n一帧都没读到, 检查视频路径和文件是否可解码")
