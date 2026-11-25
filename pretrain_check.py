@@ -1,5 +1,5 @@
-"""
-训练前数据体检：确认新增数据被 YOLO 正确读取。
+r"""
+训练前数据体检：确认新增数据被 YOLO 正确读取。.
 
 用法（在仓库根目录 D:\\DeepLearning\\ultralytics-8.4.202\\ultralytics-8.4.202 下）：
     python pretrain_check.py
@@ -19,7 +19,7 @@ IMG_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".webp", ".tif", ".tiff"}
 
 
 def parse_yaml(path: Path) -> dict:
-    """极简解析：只取 path / train / val / names 几项，避免依赖 pyyaml。"""
+    """极简解析：只取 path / train / val / names 几项，避免依赖 pyyaml。."""
     cfg = {"path": "", "train": "", "val": "", "names": {}}
     if not path.exists():
         sys.exit(f"[错误] 找不到数据集配置：{path}")
@@ -27,7 +27,7 @@ def parse_yaml(path: Path) -> dict:
         line = raw.split("#")[0].rstrip()
         if not line.strip():
             continue
-        m = re.match(r"^\s*(\d+)\s*:\s*(.+)$", line)          # names 下的 0: robot
+        m = re.match(r"^\s*(\d+)\s*:\s*(.+)$", line)  # names 下的 0: robot
         if m:
             cfg["names"][int(m.group(1))] = m.group(2).strip()
             continue
@@ -110,7 +110,9 @@ def main() -> None:
         r = check_split(root, key, split_dir(root, cfg[key]))
         print(f"[{r['split']}] {r['img_dir']}")
         print(f"  图片 {r['n_img']} 张 | 标注 {r['n_lbl']} 个")
-        print(f"  实例数 " + (", ".join(f"{names.get(c, '?'+str(c))}={n}" for c, n in sorted(r["clses"].items())) or "0"))
+        print(
+            "  实例数 " + (", ".join(f"{names.get(c, '?' + str(c))}={n}" for c, n in sorted(r["clses"].items())) or "0")
+        )
         unknown_ids |= {c for c in r["clses"] if c not in names}
         if r["missing"]:
             print(f"  [警告] {len(r['missing'])} 张图没有标注（训练时会被静默跳过）: {r['missing'][:5]}")
