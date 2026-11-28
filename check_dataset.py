@@ -1,7 +1,9 @@
-"""数据集结构自检（不训练）。运行: python check_dataset.py"""
-import os
-import yaml
+"""数据集结构自检（不训练）。运行: python check_dataset.py."""
+
 from pathlib import Path
+
+import yaml
+
 from ultralytics.data.utils import IMG_FORMATS
 
 ROOT = Path(__file__).parent
